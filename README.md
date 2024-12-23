@@ -16,9 +16,9 @@ We create a function called drawCircle, which will check if it has a completed c
 
 If angle ultrapasses 360(total angles of a circle) it turns `CompletedCircle` into 1, and finish the function();
 
-=======================================
-          The main function
-=======================================
+==================
+The main function
+==================
 
 The main function have some crucial things, it will set some variables, and some checks, so if it detects something wrong, the program will crash.
 
