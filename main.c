@@ -13,7 +13,7 @@
 int h, w;
 
 #define WINDOW_WIDTH 640
-#define WINDOW_HEIGHT 360
+#define WINDOW_HEIGHT 448 
 #define WINDOW_XPOS 0
 #define WINDOW_YPOS 0
 
@@ -23,27 +23,17 @@ SDL_Texture* texture = NULL;
 SDL_Window* window = NULL;
 SDL_Renderer* basic_renderer = NULL;
 void drawCircle(int x, int y, int radius) {
-
-    if (!completedCircle) {
-        angle += 1;
-        printf("%i \n", angle);
-
-        radAngle = angle * (M_PI / 180);
-
-        xc = WINDOW_WIDTH / 2;
-        yc = WINDOW_HEIGHT / 2;
-
-        x = xc + radius * cos(angle);
-        y = yc + radius * sin(angle);
-        SDL_RenderDrawPoint(basic_renderer, x, y);
-
-    }
-    if (angle >= 360)  {
-        completedCircle = 1;
-        printf("Pronto, seu círculo :)");
-    }
-
+        for(int i = 0; i < 360; i ++) {
+        	xc = WINDOW_WIDTH / 2;
+        	yc = WINDOW_HEIGHT / 2;
+                                                   
+        	x = xc + radius * cos(i);
+        	y = yc + radius * sin(i);
+        	SDL_RenderDrawPoint(basic_renderer, x, y); 
+	}
+	SDL_RenderPresent(basic_renderer);
 }
+
 int main() {
     int open = 1;
     (SDL_GetWindowSize(window, &w, &h));
@@ -69,18 +59,18 @@ int main() {
     //Loop Principal
     while (open) {
         //Loop pra garantir que a janela feche e nao feche
-        while (SDL_PollEvent(&event)) {
+        SDL_Delay(16);
+        
+	while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {
                 open = 0;
             }
         }
         //Renderizar circulo
-        drawCircle(320, 240, 100);
+	drawCircle(320, 240, 100);
         SDL_SetRenderDrawColor(basic_renderer, 255, 255, 255, 255);
 
         //Dar um delay para que a cpu nn va fritar um ovo
-        SDL_RenderPresent(basic_renderer);
-        SDL_Delay(16);
     }
     SDL_DestroyRenderer(basic_renderer);
     SDL_DestroyWindow(window);

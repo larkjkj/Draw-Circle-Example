@@ -3,6 +3,7 @@ This is an example of how you can use SDL to draw a circle on a screen.
 
 
 Do  :)
+=================
 ``` make ``` 
 It will generate the sdl2.out file, which will open the window, and will render a circle.
 
