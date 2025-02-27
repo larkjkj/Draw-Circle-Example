@@ -1,19 +1,22 @@
 # TARGET
-TARGET=sdl2.out
+EE_BIN		+= main.elf
 
 # C_SOURCE
-C_SOURCE=$(wildcard *.c)
+EE_C		+= main.c
 
-# COMPILER
-CC=mips64r5900el-ps2-elf-gcc
+# O FILE
+EE_OBJS		+= main.o
 
 # SPECIFY COMPILER FLAGS
-CC_FLAGS=-O2  \
-	 -lSDL2 \
-	 -lm
+EE_INCS		+= -I$(PS2SDK)/common/include -I$(PS2SDK)/ports/include -I$(GSKIT)/include
+EE_LDFLAGS	+= -L$(PS2SDK)/ports/lib/ -L$(GSKIT)/lib
+EE_LIBS		+= -lm -lc -lSDL2 -lSDL2main -ldebug -lps2_drivers -lgskit -ldma -ldmakit
 
 # TARGETS
-all:
-	$(CC) $(CC_FLAGS) $(C_SOURCE) -o $(TARGET)
+all: $(EE_BIN)
+
 clean:
 	rm -rf $(TARGET)
+
+include $(PS2SDK)/samples/Makefile.eeglobal
+include $(PS2SDK)/Defs.make
